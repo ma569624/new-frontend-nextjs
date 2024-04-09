@@ -33,6 +33,18 @@ const Detail = (props) => {
         content: () => componentRef.current,
     });
 
+    const MAX_WORDS = 18;
+
+    function sliceByWords(text, maxWords) {
+        const words = text.split(' ');
+        if (words.length > maxWords) {
+            return words.slice(0, maxWords).join(' ') + '...';
+        } else {
+            return text;
+        }
+    }
+
+
     const currentPageUrl = '';
     const title = 'My Page Title';
     const message = `Third Eye World News`;
@@ -63,25 +75,25 @@ const Detail = (props) => {
     const apiKey = 'AIzaSyAvgv1F4OfE_gtDlAtaikPgNxd-uxy-lm0';
 
     const channelId = 'UC4qhbs7b2TEy2_dmd2xxXzw';
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(
-                    `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=10`
-                );
-                const data = await response.json();
-                if (data.items) {
-                    setVideos(data.items);
-                } else {
-                    console.error('No videos found');
-                }
-            } catch (error) {
-                console.error('Error fetching videos:', error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch(
+    //                 `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=10`
+    //             );
+    //             const data = await response.json();
+    //             if (data.items) {
+    //                 setVideos(data.items);
+    //             } else {
+    //                 console.error('No videos found');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching videos:', error);
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
         Api(`blogs?page=${currentPage}&limit=${limit}&Category=${data.Category}`)
@@ -94,7 +106,7 @@ const Detail = (props) => {
                 console.error('Error fetching blogs:', err);
             });
     }, [currentPage, data, limit, Api, id]);
-    
+
     const nextPage = () => {
         setCurrentPage(currentPage + 1);
     };
@@ -112,19 +124,10 @@ const Detail = (props) => {
 
         return (
             <div className="col-lg-4">
-                <div className="section-title2 text-center">
+                <div className="section-title2 text-center mb-2 box-shodow">
                     <h2
-                        style={{
-                            backgroundColor: 'red',
-                            color: 'white',
-                            borderRadius: '40px',
-                            padding: 13,
-                            textShadow: 'rgb(21, 47, 130) 4px 4px',
-                            boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
-                            backgroundColor: 'rgb(235 91 10)'
-                        }}
                     >
-                        
+                        Khabare
                         {
                             sidename && sidename.SecondSection
                         }
@@ -137,22 +140,22 @@ const Detail = (props) => {
                 {
                     blogs.map((item) => {
                         return (
-                            <div className="hero pos-relative mb-2">
-                                <div className="hero__thumb" data-overlay="dark-gradient" style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )' }}>
+                            <div className="hero pos-relative mb-2 post-more">
+                                <div className="hero__thumb" data-overlay="dark-gradient">
                                     <Image
                                         height={195}
                                         width={200}
                                         src={item.Image && `${API}${item.Image}`}
                                         // style={{ height: 195, }}
                                         alt="hero image"
-                                        style={{cursor: 'pointer'}}
+
                                         onClick={(e) => LoadingNewdata(item._id)}
                                     />
                                 </div>
 
                                 <div className="hero__text" style={{ padding: "0px 15px" }}>
-                                    <h3 className="" onClick={(e) => LoadingNewdata(item._id)} style={{ fontSize: '22px', color: 'white', fontWeight: 600, cursor: 'pointer' }}>
-                                        {item.Heading && item.Heading.slice(0, 57)}...
+                                    <h3 className="" onClick={(e) => LoadingNewdata(item._id)} >
+                                        {item.Heading && sliceByWords(item.Heading, MAX_WORDS)}
                                     </h3>
                                 </div>
 
@@ -163,14 +166,14 @@ const Detail = (props) => {
 
                 <div className="pagination text-center">
                     <ul>
-                        <li style={{ boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px' }}>
-                            <a onClick={prevPage} disabled={currentPage === 1}>
+                        <li>
+                            <a className="hover-effect" onClick={prevPage} disabled={currentPage === 1}>
                                 पिछली ख़बर
                             </a>
                         </li>
 
-                        <li style={{ boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px' }}>
-                            <a onClick={nextPage}>
+                        <li>
+                            <a className="hover-effect" onClick={nextPage}>
                                 अगली ख़बर
                             </a>
                         </li>
@@ -178,89 +181,7 @@ const Detail = (props) => {
                 </div>
 
 
-                <div className="">
-                    <div className="section-title mb-2" style={{
-                        backgroundColor: 'red',
-                        color: 'white',
-                        textShadow: 'rgb(21, 47, 130) 4px 4px',
-                        boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
-                    }}>
-
-                        <a to={'/youtube'} className='d-flex align-items-center'>
-
-                            <img style={{ width: '65px', height: '50px', }} className='me-2 ml-2' src={category.length > 0 ? `${API}${category[2].Image}` : ''} alt="" />
-                            <h2
-                                style={{
-                                    padding: 8,
-                                    margin: 0,
-                                    fontSize: 18,
-                                    color: 'white',
-                                }}
-                                className='flex-fill text-center'
-                            >
-                                {
-                                    category.length > 0 ? category[2].name : <></>
-                                }
-                            </h2>
-                        </a>
-                    </div>
-
-
-                    <div className="postbox">
-                        {videos.slice(0, 1).map((video) => (
-                            <div key={video.id.videoId} >
-
-                                <div className="video">
-                                    <YouTube class="card-img-top"
-                                        videoId={video.id.videoId}
-                                        // onReady={onReady}
-                                        opts={{ width: '357', height: '320' }}
-                                    />
-                                </div>
-
-                            </div>
-                        ))}
-                        <div className="section-title mb-2" style={{
-                            backgroundColor: 'red',
-                            color: 'white',
-
-                            textShadow: 'rgb(21, 47, 130) 4px 4px',
-                            boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
-                        }}>
-                            <a to={'/youtube'} className='d-flex align-items-center'>
-
-                                <img style={{ width: '65px', height: '50px', }} className='me-2 ml-2' src={category.length > 0 ? `${API}${category[2].Image}` : ''} alt="" />
-
-                                <h2
-                                    style={{
-                                        padding: 8,
-                                        margin: 0,
-                                        fontSize: 18,
-                                        color: 'white',
-                                    }}
-                                    className='flex-fill text-center'
-                                >
-                                    {/* {data[0].Heading} */}
-                                    {
-                                        category.length > 0 ? category[3].name : <></>
-                                    }
-                                </h2>
-
-                            </a>
-                        </div>
-
-                    </div>
-                    {/* <div className="postbox mb-15"> */}
-                    <div className="postbox__thumb">
-                        <a href="#">
-                            <img
-                                src="img/ShowImage.gif"
-                                alt="hero image"
-                                style={{ height: 231, filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )' }}
-                            />
-                        </a>
-                    </div>
-                </div>
+                
             </div>
         )
     }
@@ -268,12 +189,12 @@ const Detail = (props) => {
 
     const instagramProfileUrl = 'https://www.instagram.com';
 
+    const [open, setOpen] = useState(false);
 
-    const [modalIsOpen, setIsOpen] = useState(false);
+    const toggleModal = () => {
+        setOpen(!open);
+    };
 
-    function openModal() {
-        setIsOpen(true);
-    }
 
 
     return (
@@ -282,18 +203,8 @@ const Detail = (props) => {
                 <div className="container">
                     <div className="row" ref={componentRef}>
                         <div className="col-xl-8 col-lg-8" >
-                            <div className="section-title2 text-center">
-                                <h2
-                                    style={{
-                                        backgroundColor: 'white',
-                                        color: 'white',
-                                        borderRadius: '40px',
-                                        fontSize: '24px',
-                                        padding: 13,
-                                        textShadow: 'rgb(21, 47, 130) 4px 4px',
-                                        boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
-                                        backgroundColor: 'rgb(8 104 92)'
-                                    }}
+                            <div className="section-title2  box-shodow">
+                                <h2 className="text-center"
                                 >
                                     {data.Category}
                                 </h2>
@@ -301,12 +212,12 @@ const Detail = (props) => {
                             <div className="post-details mt-2" >
 
                                 <div ref={componentRef}>
-                                    <h1 className="details-title mb-15 text-center" style={{ lineHeight: 1.5, fontWeight: 900, letterSpacing: '-1px' }}>
+                                    <h1 className="details-title">
                                         {
                                             data && data.Heading !== undefined && data.Heading
                                         }
                                     </h1>
-                                    <h4 className="mb-5 text-center" style={{ fontSize: '32px', fontWeight: 600, color: '#0a0ae2', lineHeight: 1.5 }}>
+                                    <h4 className="details-subheading">
                                         {
                                             data && data.Subheading !== undefined && data.Subheading
                                         }
@@ -342,7 +253,6 @@ const Detail = (props) => {
                                                     />
                                                 )
                                             }
-
                                             <strong style={{ fontSize: 15, color: '#000' }}>
                                                 {
                                                     data !== undefined && data.ReporterName !== undefined && (
@@ -356,14 +266,13 @@ const Detail = (props) => {
                                             <strong style={{ fontSize: 15, color: '#000' }}>
                                                 {data && data.Designation !== undefined && data.Designation}
                                             </strong>
-
                                         </div>
-                                        <div className="post-thumb mb-25">
+                                        <div className="post-thumbmb-25">
                                             {<Image
                                                 src={data.Image && `${API}${data.Image}`} // Construct the full image URL
                                                 width={803}
                                                 height={454}
-                                                style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px)', marginBottom: '5px' }}
+                                                className="main-img"
                                                 alt="Image"
                                             />}
                                             <strong className="mt-2" style={{ fontSize: 15, color: '#000' }}>
@@ -389,7 +298,7 @@ const Detail = (props) => {
                                                     </h4>
                                                 </div>
                                                 <button className="border-0 bg-white mt-2" onClick={handlePrint}>
-                                                    <img src='print' alt="print" style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )', width: '30px', height: '30px' }} />
+                                                    <img src='/printer.svg' alt="print" style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )', width: '30px', height: '30px' }} />
                                                 </button>
                                             </div>
                                         </div>
@@ -400,8 +309,8 @@ const Detail = (props) => {
                                                     अपना सहयोग दें
                                                 </h4>
                                             </div>
-                                            <button className="border-0 bg-white mt-2" onClick={openModal}>
-                                                <img src='help' alt="help" style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )', width: '30px' }} />
+                                            <button className="border-0 bg-white mt-2" onClick={toggleModal}>
+                                                <img src={'/Donate.svg'} alt="help" style={{ filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )', width: '30px' }} />
                                             </button>
                                         </div>
 
@@ -414,7 +323,7 @@ const Detail = (props) => {
                                             <ul className="article-share-icon mt-2">
                                                 <li>
                                                     {/* <span> */}
-                                                    <span style={{ height: '30px', width: '30px', backgroundColor: '#F1B717', borderRadius: '50%', position: 'relative', boxShadow: 'rgb(102, 102, 102) 3px 4px 4px 1px' }}>
+                                                    <span style={{ border: '2px solid yellow', height: '30px', width: '30px', backgroundColor: '#000', borderRadius: '50%', position: 'relative', boxShadow: 'rgb(102, 102, 102) 3px 4px 4px 1px' }}>
                                                         <FcShare size={22} style={{ position: 'absolute', top: '15%', left: '9%', }} />
                                                     </span>
                                                     <ul class="article-share-platform">
@@ -441,23 +350,8 @@ const Detail = (props) => {
                                                                 <TwitterIcon size={25} round={true} />
                                                             </TwitterShareButton>
                                                         </li>
+                                                       
                                                         <li>
-                                                            <a
-                                                                data-activity="instagram_share"
-                                                                data-action="share/instagram/share"
-                                                                href={instagramProfileUrl}
-                                                                className="m-0"
-                                                                target="_blank"
-                                                                aria-label="Share on Instagram"
-                                                                data-tooltip-id="my-tooltip"
-                                                                data-tooltip-content="Share on Instagram"
-                                                                style={{ display: 'block', border: 'none', width: '30px', height: '30px', position: 'relative', boxShadow: 'rgba(62, 143, 11, 0.53) 3px 4px 4px 1px' }}
-                                                            >
-                                                                {/* <img src={instagram} style={{ position: 'absolute', top: '10%', left: '5%', width: '32px' }} /> */}
-                                                            </a>
-                                                        </li>
-                                                        <li>
-
                                                             <a
                                                                 data-activity="instagram_share"
                                                                 data-action="share/instagram/share"
@@ -469,9 +363,8 @@ const Detail = (props) => {
                                                                 data-tooltip-content="Share on Instagram"
                                                                 style={{ display: 'block', border: 'none', width: '27px', height: '25px', position: 'relative', boxShadow: 'rgba(62, 143, 11, 0.53) 3px 4px 4px 1px' }}
                                                             >
-                                                                {/* <img src={email} alt="" /> */}
+                                                                <img src='/email.svg' alt="" />
                                                             </a>
-
 
                                                         </li>
                                                         <li>
@@ -479,11 +372,7 @@ const Detail = (props) => {
                                                                 <TelegramIcon size={24} round={true} />
                                                             </TelegramShareButton>
                                                         </li>
-                                                        <li>
-                                                            <LinkedinShareButton url={currentPageUrl} quote={title} style={{ boxShadow: 'rgba(62, 143, 11, 0.53) 3px 4px 4px 1px' }}>
-                                                                <LinkedinIcon size={25} round={true} />
-                                                            </LinkedinShareButton>
-                                                        </li>
+                                                        
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -502,7 +391,7 @@ const Detail = (props) => {
                     </div>
                 </div>
             </section >
-            <Model modalIsOpen={modalIsOpen} />
+            <Model open={open} />
         </>
     )
 }

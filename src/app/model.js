@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
+import { ImCross } from "react-icons/im";
 
+const Model = ({ open }) => {
+    const [modalIsOpen, setIsOpen] = useState(false);
 
-const Model = ({ modalIsOpen }) => {
+    useEffect(() => {
+        if (open) {
+            setIsOpen(true);
+        }
+    }, [open]);
 
     const customStyles = {
         content: {
@@ -15,68 +22,90 @@ const Model = ({ modalIsOpen }) => {
             backgroundColor: 'rgb(204 201 201)', // Change background color here
             border: '8px solid rgb(88 90 3)', // Add border for better visibility
             boxShadow: '0 2px 4px rgba(0,0,0,0.2)', // Add box shadow for a subtle effect
-            borderRadius: '8px', // Add border radius for rounded corners
-            padding: '20px', // Add padding for content spacing
-            maxWidth: '680px', // Increase the width of the modal here
+            borderRadius: '16px', // Add border radius for rounded corners
+            padding: '2px', // Add padding for content spacing
+            maxWidth: '663px', // Increase the width of the modal here
             width: '80%', // Set a percentage or pixel value for responsiveness
-    
         },
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark color with 50% opacity
             zIndex: 1000, // Adjust the z-index as needed
         }
     };
+    function openModal() {
+        setIsOpen(true);
+    }
 
     function afterOpenModal() {
-        if (subtitle) {
-            subtitle.style.color = '#ddd';
-        }
+        // references are now sync'd and can be accessed.
+        subtitle.style.color = '#f00';
     }
 
     function closeModal() {
         setIsOpen(false);
     }
-
+    
     return (
         <Modal
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             style={customStyles}
-            contentLabel="modal-new"
+            contentLabel="Example Modal"
         >
-            <div class="container text-center">
-                <div class="row justify-content-center">
+            <div class="text-center">
+                <div class="custom-model">
+                    <button className='cross' onClick={closeModal}><ImCross /></button>
+                    <img src='/donate.jpg'  alt="" width={160} />
 
-                    <div className="mb-4" style={{ borderRadius: '4px ', boxShadow: "rgb(11 11 19 / 25%) 12px 12px 2px 1px" }}>
-                        {/* <img src={donate} alt="" width={160} /> */}
-                    </div>
-                    <div className="mb-4" style={{ backgroundColor: 'red', padding: '3px 6px 3px 8px', borderRadius: '40px ', boxShadow: "rgba(255, 0, 0, 0.53) 3px 4px 4px 1px" }}>
-
-                        <h4 className="text-right text-white mb-1" style={{ fontWeight: 900, fontSize: '18px', textShadow: 'rgb(21 47 130) 4px 4px', }}>
+                    <div className="mb-1 mt-1 model-heading-bg">
+                        <h4 className="model-heading">
                             अपने साथ लगातार जुड़े रहने के लिए हमें अपना सहयोग दें/दान करें <span style={{ fontSize: '26px' }}>🙏</span>
                         </h4>
                     </div>
                     <div className="row m-lg-3">
-                        <div class="col-sm-6">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>Account Name / खाता नाम</h5>
-                        </div>
-                        <div class="col-sm-6 text-center">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>Third Eye World News (Hindi)</h5>
-                        </div>
+                        <table class="table table-striped table-dark ">
 
-                        <div class="col-sm-6 text-center">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>Account Number/खाता नंबर</h5>
-                        </div>
-                        <div class="col-sm-6 text-center">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>000705029296</h5>
-                        </div>
-                        <div class="col-sm-6 text-center">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>IFS Code/आईएफएस कोड</h5>
-                        </div>
-                        <div class="col-sm-6 text-center">
-                            <h5 class="mt-0 text-left" style={{ fontSize: '19px', fontWeight: '700', textShadow: 'rgb(196 157 157) 2px 3px', color: '#586a04' }}>ICIC0000007</h5>
-                        </div>
+                            <tbody>
+                                <tr >
+
+                                    <th scope="row">
+                                        <h5 class="text-left" >Account Name / खाता नाम</h5>
+                                    </th>
+                                    <td >
+                                        <h5 class=" text-left">Third Eye World News (Hindi)</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <h5 class=" text-left">Bank Name / बैंक नाम</h5>
+                                    </th>
+                                    <td>
+                                        <h5 class=" text-left">ICICI BANK</h5>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <h5 class="mt-0 text-left">Account Number/खाता नंबर</h5>
+                                    </th>
+                                    <td>
+                                        <h5 class="mt-0 text-left">000705029296</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <h5 class="mt-0 text-left">IFS Code/आईएफएस कोड</h5>
+
+                                    </th>
+                                    <td>
+                                        <h5 class="mt-0 text-left">ICIC0000007</h5>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>

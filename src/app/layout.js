@@ -27,6 +27,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        
         <Header API={API} data={data} advert={advert} tagline={tagline} blogdisplay={blogdisplay} rajiya={rajiya} topKhabare={topKhabare.data} />
         {React.Children.map(children, child => React.cloneElement(child, { API, advert, idharbhi: idharbhi.data, toplinks }))}
         <Footer API={API} advert={advert} idharbhi={idharbhi.data} toplinks={toplinks} allblogs={allblogs.data} />

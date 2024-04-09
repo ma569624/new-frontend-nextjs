@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Api from "../Api/Api";
 // import { a } from "react-router-dom";
 import { MdDoubleArrow } from "react-icons/md";
+import Weather from "./weather";
 
 
 const VotPoll = ({ color }) => {
@@ -38,7 +39,7 @@ const VotPoll = ({ color }) => {
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="section-title mb-2">
-                                <div style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5, boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px', }}>
+                                <div className="box-shodow" style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5, }}>
 
                                     <h2 className="p-0 m-0" style={{ textShadow: 'rgb(21, 47, 130) 4px 4px', color: 'white', fontSize: '18px', }}>
                                         <MdDoubleArrow size={30} />
@@ -103,7 +104,7 @@ const VotPoll = ({ color }) => {
                                                     <tr valign="top">
                                                         <td colSpan={6}>
                                                             <div align="left" className="polltext mb-1">
-                                                                <button className="bg-success text-white" style={{ border: '2px solid rgb(194 99 99)', boxShadow: 'rgb(207 170 170 / 53%) 0px 2px 2px 1px', borderRadius: '8px', padding: '3px 12px 7px 11px', textShadow: 'rgb(21, 47, 130) 1px 1px', fontWeight: 600 }}>Submit</button>
+                                                                <button className="bg-success submit">Submit</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -116,9 +117,10 @@ const VotPoll = ({ color }) => {
                                 ))
                             }
                         </div>
+
                         <div className="col-lg-3" >
                             <div className="section-title mb-30">
-                                <div style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5, boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px', }}>
+                                <div className="box-shodow" style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5,  }}>
 
                                     <h2 className="p-0 m-0" style={{ textShadow: 'rgb(21, 47, 130) 4px 4px', color: 'white', fontSize: '18px', }}>
                                         <MdDoubleArrow size={30} />
@@ -127,24 +129,28 @@ const VotPoll = ({ color }) => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="col-lg-3">
                             <div className="section-title mb-30">
-                                <div style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5, boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px', }}>
+                                <div className="box-shodow mb-4" style={{ display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 5, }}>
                                     <MdDoubleArrow size={30} style={{ color: 'white' }} />
                                     <h2 className="p-0 m-0 p-0 flex-fill text-center mt-2" style={{ textShadow: 'rgb(21, 47, 130) 3px 2px', color: 'white', fontSize: '18px', marginLeft: '-20px !important' }}>
                                         मौसम का हाल
                                     </h2>
                                 </div>
+                                {/* <Weather /> */}
                             </div>
                         </div>
+
                         <div className="col-lg-3">
                             <div className="section-title ">
-                                <div style={{marginBottom: 4, display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 4, boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px', }}>
+                                <div className="box-shodow" style={{marginBottom: 4, display: 'flex', backgroundColor: 'rgb(6, 115, 196)', borderRadius: '8px', padding: 4, }}>
                                     <MdDoubleArrow size={30} style={{ color: 'white' }} />
                                     <h2 className="p-0 flex-fill text-center mt-2" style={{ textShadow: 'rgb(21, 47, 130) 3px 2px', color: 'white', fontSize: '18px', marginLeft: '-20px !important' }}>
                                         विज्ञापन
                                     </h2>
                                 </div>
+
                                 <img
                                     src="ShowImage.gif"
                                     alt="hero image"

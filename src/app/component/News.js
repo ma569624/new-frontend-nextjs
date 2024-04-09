@@ -13,34 +13,41 @@ const News = ({ data, category }) => {
     router.push(`/inner/${data._id}`);
   };
 
-  const MAX_WORDS = 10;
+  const MAX_WORDS = 14;
 
   function sliceByWords(text, maxWords) {
     const words = text.split(' ');
-    const slicedText = words.slice(0, maxWords).join(' ');
-    return slicedText;
+    if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(' ') + '...';
+    } else {
+      return text;
+    }
   }
+
   // Inside your component
 
 
   return (
     <>
-      <div style={{ minWidth: '190px', width: "205px !important", maxWidth: 'min-content' }} className="">
+      <div style={{ minWidth: '190px', width: "205px !important", maxWidth: 'min-content' }} className="postbox__text">
         {
           data.Image && (
+            <div className="image-container2">
             <Image
               width={190}
               height={153}
               src={data.Image && `${API}${data.Image}`}
-              style={{ borderRadius: '8px', cursor: 'pointer', maxWidth: '190px', minHeight: '153px', filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )' }}
+              style={{ borderRadius: '14px', cursor: 'pointer', maxWidth: '190px', minHeight: '153px', }}
               alt="hero image"
               onClick={handleClick}
             />
+            </div>
+            
           )
         }
 
-        <h4 className="title-16 pr-0 blueheading" style={{cursor: 'pointer'}} onClick={handleClick}>
-         {data.Heading && sliceByWords(data.Heading, MAX_WORDS)}...
+        <h4 className="title-16 pr-0" onClick={handleClick}>
+         {data.Heading && sliceByWords(data.Heading, MAX_WORDS)}
         </h4>
       </div>
     </>

@@ -9,16 +9,21 @@ function Follow() {
     const toggleIcon = () => {
         setIsOpen(prevState => !prevState);
     };
+    const[show, setShow] = useState(false)
 
     return (
         <div className={isOpen ? 'share-button-wrap open-icon' : 'share-button-wrap'}>
             <div class="share-button-wrap__center-icon">
-                <span className='title-show'>follow</span>
-                <div class="share-button-wrap__share-icon" onClick={toggleIcon}>
+                {
+                    show ? <span className='title-show'>हमें फॉलो करें</span> : ''
+                }
+                
+                <div class="share-button-wrap__share-icon" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(!show)} onClick={toggleIcon}>
                     <i class="fa fa-share-alt"><FaShareAlt /></i>
                 </div>
 
                 <div class="share-button-wrap__social-icon-wrap">
+                
                     <ul>
                         <li>
                             <i class="fa fa-facebook-f">

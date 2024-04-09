@@ -92,19 +92,18 @@ const ApradJagat = (props) => {
 
   return (
     <>
-      <section className="news-area pt-2 pb-2">
+      <section className="news-area mt-2">
         {
           data.map((item) => (
 
             <div className="container">
               <div className="row row-10">
                 <div className="col-40 pr-0">
-                  <div className="section-title d-flex align-items-center mb-2" style={{
+                  <div className="section-title d-flex align-items-center mb-1 box-shodow text-Shadow" style={{
                     backgroundColor: '#a01f1f',
                     color: 'white',
                     borderRadius: '8px',
-                    textShadow: 'rgb(21, 47, 130) 4px 4px',
-                    boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
+                    
                   }}>
                     <img style={{ borderRadius: '8px', width: '80px', height: '50px', marginRight: '2px', padding: '2px', filter: 'drop-shadow(rgb(132, 85, 99) 4px 3px 1px)' }} className='me-4 ml-1' src={`${API}${item.Image1}`} alt="" />
                     <MdDoubleArrow size={50} />
@@ -123,12 +122,11 @@ const ApradJagat = (props) => {
 
                 </div>
                 <div className="col-20 ">
-                  <div className="section-title d-flex align-items-center" style={{
+                  <div className="section-title d-flex align-items-center box-shodow text-Shadow" style={{
                     backgroundColor: '#a01f1f',
                     color: 'white',
                     borderRadius: '8px',
-                    textShadow: 'rgb(21, 47, 130) 4px 4px',
-                    boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
+                   
                   }}>
                     <img style={{ borderRadius: '8px', width: '71px', height: '50px', marginRight: '5px',padding: '2px', }} className='me-4 ml-1' src={`${API}${item.Image2}`} alt="" />
                     {/* <MdArrowForwardIos size={32} style={{marginLeft: '-10px'}} /> */}

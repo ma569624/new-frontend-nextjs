@@ -96,25 +96,23 @@ const KhabreRajiyoki = (props) => {
   }
   return (
     <>
-      <section className="news-area pt-2">
+      <section className="news-area pt-1 ">
         {/* trendy news */}
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="section-title text-center">
-                <h2
+              <div className="section-title text-center text-Shadow box-shodow">
+                <h2 className='main'
                   style={{
-                    backgroundColor: 'rgb(6, 115, 196)',
+                    
                     color: 'white',
                     // padding: 10,
                     borderRadius: '18px',
-                    textShadow: 'rgb(21, 47, 130) 4px 4px',
                     fontSize: '24px',
-                    boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
+                   
                   }}
                 >
                   <MdDoubleArrow size={50} className='mr-2' />
-
                   ख़बरें राज्यों से
                 </h2>
               </div>
@@ -124,7 +122,7 @@ const KhabreRajiyoki = (props) => {
         {/* trendy news end */}
       </section>
 
-      <section className="news-area pt-2 ">
+      <section className="news-area ">
         {
           data.slice(0, 5).map((item) => (
 
@@ -133,13 +131,12 @@ const KhabreRajiyoki = (props) => {
               <div className="container">
                 <div className="row row-10">
                   <div className="col-40 pr-0">
-                    <div className="section-title d-flex align-items-center" style={{
+                    <div className="section-title d-flex align-items-center mb-1 text-Shadow box-shodow" style={{
                           backgroundColor: '#a01f1f',
                           color: 'white',
                           // padding: 13,
                           borderRadius: '8px',
-                          textShadow: 'rgb(21, 47, 130) 3px 2px',
-                          boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
+                          
                         }}>
                       <img style={{ borderRadius: '8px', width: '80px', height: '50px', marginRight: '2px', padding: '2px', filter: 'drop-shadow(rgb(132, 85, 99) 4px 3px 1px)' }} className='ml-1' src={`${API}${item.Image1}`} alt="" />
                       <MdDoubleArrow size={50} className='mr-2' />
@@ -156,11 +153,9 @@ const KhabreRajiyoki = (props) => {
                   </div>
 
                   <div className="col-20 ">
-                    <div className="section-title d-flex align-items-center" style={{
+                    <div className="section-title d-flex align-items-center mb-1 text-Shadow box-shodow" style={{
                       backgroundColor: '#a01f1f', color: 'white',
                       borderRadius: '8px',
-                      textShadow: 'rgb(21, 47, 130) 3px 2px',
-                      boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
                     }}>
 
                       <img style={{ borderRadius: '8px', width: '71px', height: '50px', marginRight: '2px', padding: '2px', filter: 'drop-shadow(rgb(132, 85, 99) 4px 3px 1px)' }} className='ml-1' src={`${API}${item.Image2}`} alt="" />

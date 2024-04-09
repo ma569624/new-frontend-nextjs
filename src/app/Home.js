@@ -10,7 +10,7 @@ const Home = (props) => {
     const [blogs, setBlogs] = useState([])
     const [category, setCategory] = useState([])
     const API = props.API;
-    console.warn(props.toplinks)
+    // console.warn(props.toplinks)
     const [advert, setAdvert] = useState([])
 
 
@@ -19,6 +19,17 @@ const Home = (props) => {
         setAdvert(props.advert)
         setBlogs(props.badikhabar)
     }, [])
+
+    const MAX_WORDS = 12;
+
+    function sliceByWords(text, maxWords) {
+        const words = text.split(' ');
+        if (words.length > maxWords) {
+          return words.slice(0, maxWords).join(' ') + '...';
+        } else {
+          return text;
+        }
+      }
 
 
     return (
@@ -41,13 +52,12 @@ const Home = (props) => {
             <section className="features-area pb-2">
                 <div className="container">
                     <div className="content-pad border pb-0">
-                        <div className="section-title d-flex align-items-center justify-content-center mb-2" style={{
+                        <div className="section-title d-flex align-items-center justify-content-center mb-1 box-shodow text-Shadow" style={{
                             backgroundColor: '#a01f1f',
                             color: 'white',
                             borderRadius: '18px',
-                            textShadow: 'rgb(21, 47, 130) 4px 4px',
-                            boxShadow: 'rgba(255, 0, 0, 0.53) 3px 4px 4px 1px',
                         }}>
+
                             <img style={{ borderRadius: '8px', width: '71px', height: '50px', marginRight: '2px', padding: '2px', filter: 'drop-shadow(rgb(132, 85, 99) 4px 3px 1px)' }} className='me-4 ml-1' src={category.length > 0 ? `${API}${category[4].Image}` : ''} alt="" />
                             <MdDoubleArrow size={50} />
                             <h2
@@ -69,18 +79,19 @@ const Home = (props) => {
                                 blogs.slice(0, 9).map((item) =>
                                     <div className="col-lg-4">
                                         <div className="cat-sm-post">
-                                            <div className="post__small mb-2">
-                                                <div className="post__small-thumb f-left">
+                                            <div className="post__small mb-1">
+                                                <div className="post__small-thumb f-left image-container">
                                                     <img
                                                         src={`${API}${item.Image}`}
-                                                        style={{ borderRadius: '8px', width: 195, height: 139, filter: 'drop-shadow(rgb(102, 102, 102) 4px 4px 1px )' }}
+                                                        style={{ borderRadius: '12px', width: '210px', height: '140px' }}
                                                         alt="hero image"
                                                     />
                                                 </div>
+
                                                 <div className="post__small-text fix pl-10">
-                                                    <h4 className="title-16 pr-0 mt-0 blueheading" >
+                                                    <h4 className="title-16 pr-0 mt-0" >
                                                         <a href={`/inner/${item._id}/mainnews`}>
-                                                            {item.Heading && item.Heading.slice(0, 49)} ...
+                                                            {item.Heading && sliceByWords(item.Heading, MAX_WORDS)}
                                                         </a>
                                                     </h4>
                                                 </div>
@@ -93,6 +104,7 @@ const Home = (props) => {
                     </div>
                 </div>
             </section >
+
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
@@ -100,7 +112,6 @@ const Home = (props) => {
                             {
                                 advert.filter(item => item.location.includes('jara idhar bhi top')).map((item) => (
                                     <a target='_blank' href={item.url ? item.url : `${API}${item.Image2}`}><img style={{ width: '900px', height: '160px' }} src={`${API}${item.Image1}`} alt="" /></a>
-
                                 ))
                             }
                         </div>
